@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Lab2 - Metronome</title>
+    <script>
+
+        var url = "http://192.168.101.31:8080";
+
+        function get_bpm() {
+          fetch(url + "/bpm").then(response => response.json())
+          .then(json => document.getElementById("demo").innerHTML = json);  
+        }
+
+        function get_max_bpm() {
+          fetch(url + "/bpm/max")
+          .then(response => response.json())
+          .then(json => document.getElementById("demo2").innerHTML = json);
+        }
+
+        function get_min_bpm() {
+          fetch(url + "/bpm/min")
+          .then(response => response.json())
+          .then(json => document.getElementById("demo3").innerHTML = json);
+        }
+
+        function del_max_bpm() {
+            fetch(url + "/bpm/max"
+            ,{
+                method: 'DELETE',
+            });
+            alert("The max BPM among four samples is set to 0!");
+        }
+
+        function del_min_bpm() {
+            fetch(url + "/bpm/min"
+            ,{
+                method: 'DELETE',
+            });
+            alert("The min BPM among four samples is set to 0!");
+        }
+
+        function set_cur_bpm() {
+            var input = parseInt(document.getElementById("input").value);
+            if(input < 0 || input > 6000) {
+                alert("Value should between 0~6000!");
+                return;
+            }
+            fetch(url + "/bpm", {
+                method: 'PUT',
+                body: JSON.stringify(input),
+                //body: JSON.stringify(66),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8'
+                }
+            });
+        }
+    </script>
+
+</head>
+
+<body>
+<h1>CNT5517 Lab2 - Metronome Control Webpage</h1>
+<h4>Name:Hsiang-Yuan Liao    <br>    UFID:4353-5341</h4>
+<p><i>README:<br> 
+Intially, all the sample beats are set to 0. <br>
+It has <b>four</b> sample beats stores in the metronome. When setting a new beat, it will replace the oldest beat.
+<br>Get Max/Min BPM will show the max/min BPM in the four sample beats that are stored.
+<br>If under the condition that the current beat is the max or min BPM, del min/max will set that sample to 0, and also set current beat to 0.</i></p>
+
+
+<p>Current BPM: <p id="demo"></p>
+<button type="button" onclick="get_bpm()">get Current BPM</button>
+<p>Current MAX BPM: <p id="demo2"></p>
+<button type="button" onclick="get_max_bpm()">get MAX BPM</button>
+<p>Current MAX BPM: <p id="demo3"></p>
+<button type="button" onclick="get_min_bpm()">get MIN BPM</button>
+<br><br>
+<button type="button" onclick="del_max_bpm()">del MAX BPM</button>
+<br><br>
+<button type="button" onclick="del_min_bpm()">del MIN BPM</button>
+<br><br>
+<input type="number" id="input" name="input min="0" max="1000">
+<button type="button" onclick="set_cur_bpm()">set New BPM</button>
+
+<br>
+
+</body>
+
+</html>
