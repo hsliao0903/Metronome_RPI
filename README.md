@@ -1,4 +1,7 @@
-CNT5517/CIS4930 Mobile Computing
-Lab 2 - Metronome Thing Implementation Using Raspberry Pi
-Please refer to Lab2.pdf for more lab detail
+# Metronome RPi
+
+Implement a metronome using Raspberry Pi 3B with push buttons and LEDs.
+Also contains a simple html webpage to control the metronome by RESTful APIs.
+
+Please see [Lab2.pdf](https://github.com/hsliao0903/Metronome_RPI/blob/master/Lab2.pdf) for more implementation details and simulation conclusions.
 
